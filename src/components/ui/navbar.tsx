@@ -34,7 +34,7 @@ const Navbar: React.FC<NavItemsMannschaftenProps> = ({ navItemsMannschaften, nav
 
     return (
       <>
-        <div className="flex md:hidden pt-4 pl-5 border-b border-slate-300 shadow-lg">
+        <div className="flex lg:hidden pt-4 pl-5 border-b border-slate-300 shadow-lg">
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
               <Button
@@ -79,14 +79,21 @@ const Navbar: React.FC<NavItemsMannschaftenProps> = ({ navItemsMannschaften, nav
                         </MobileLink>
                       ))}
                     </div>
-                    <h4 className="flex flex-col pt-3 font-semibold"><Link href="/unterstützer">Unterstützer</Link></h4>
+                    <div className="flex flex-col space-y-3 pt-3">
+                      <h4 className="font-semibold">Sonstiges</h4>
+                      {navItemsSonstiges.map((navItemSonstiges: INavItem) => (
+                        <MobileLink key={navItemSonstiges.title} href={navItemSonstiges.href} className="ml-2">
+                          {navItemSonstiges.title}
+                        </MobileLink>
+                      ))}
+                    </div>
                 </div>
               </ScrollArea>
             </SheetContent>
           </Sheet>
         </div>
 
-        <NavigationMenu className="p-6 pb-1 hidden md:flex">
+        <NavigationMenu className="p-6 pb-1 hidden lg:flex">
           <NavigationMenuList>
             <Button
                 variant="ghost"
