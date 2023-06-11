@@ -1,7 +1,7 @@
 "use client"
 import Link from "next/link";
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, navigationMenuTriggerStyle } from "./navigation-menu"
-import { INavItem, navItemsSonstiges, navItemsVerein } from "~/app/config";
+import { type INavItem, navItemsSonstiges, navItemsVerein } from "~/app/config";
 import { ListItem } from "./list-item";
 import { Button } from "./button";
 import Image from "next/image";
@@ -17,7 +17,9 @@ interface NavItemsMannschaftenProps {
 
 const Navbar: React.FC<NavItemsMannschaftenProps> = ({ navItemsMannschaften, navItemsVeranstaltungen }) => {
   const [isOpen, setIsOpen] = useState(false)
-  const [browserWidth, setBrowserWidth] = useState<number>(window.innerWidth);
+  const [browserWidth, setBrowserWidth] = useState<number>(
+    typeof window !== "undefined" ? window.innerWidth : 0
+  );
 
   useEffect(() => {
     const handleResize = () => {
