@@ -48,7 +48,8 @@ export const navItemsSonstiges: INavItem[] = [
         title: "Unterstützer werden",
     },
     {
-        href: "/sport-in-kw",
+        href: "https://sportinkw.de/",
         title: "Sport in KW",
+        description: "Die offizielle Seite von Sport in KW"
     }
   ]    

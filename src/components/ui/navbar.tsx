@@ -58,7 +58,7 @@ const Navbar: React.FC<NavItemsMannschaftenProps> = ({ navItemsMannschaften, nav
                 <div className="flex flex-col space-y-3">
                     <div className="flex flex-col space-y-3 pt-10">
                       <h4 className="font-semibold">Verein</h4>
-                      {navItemsVerein.map((navItemVerein: INavItem) => (
+                      {navItemsVerein.map((navItemVerein) => (
                         <MobileLink key={navItemVerein.title} href={navItemVerein.href} className="ml-2">
                           {navItemVerein.title}
                         </MobileLink>
@@ -66,7 +66,7 @@ const Navbar: React.FC<NavItemsMannschaftenProps> = ({ navItemsMannschaften, nav
                     </div>
                     <div className="flex flex-col space-y-3 pt-3">
                       <h4 className="font-semibold">Mannschaften</h4>
-                      {navItemsMannschaften.map((navItemMannschaften: INavItem) => (
+                      {navItemsMannschaften.map((navItemMannschaften) => (
                         <MobileLink key={navItemMannschaften.title} href={navItemMannschaften.href.toLowerCase()} className="ml-2">
                           {navItemMannschaften.title}
                         </MobileLink>
@@ -75,7 +75,7 @@ const Navbar: React.FC<NavItemsMannschaftenProps> = ({ navItemsMannschaften, nav
                     <h4 className="flex flex-col pt-3 font-semibold"><Link href="/news">News</Link></h4>
                     <div className="flex flex-col space-y-3 pt-3">
                       <h4 className="font-semibold">Veranstaltungen</h4>
-                      {navItemsVeranstaltungen.map((navItemsVeranstaltungen: INavItem) => (
+                      {navItemsVeranstaltungen.map((navItemsVeranstaltungen) => (
                         <MobileLink key={navItemsVeranstaltungen.title} href={navItemsVeranstaltungen.href.toLowerCase()} className="ml-2">
                           {navItemsVeranstaltungen.title}
                         </MobileLink>
@@ -83,7 +83,7 @@ const Navbar: React.FC<NavItemsMannschaftenProps> = ({ navItemsMannschaften, nav
                     </div>
                     <div className="flex flex-col space-y-3 pt-3">
                       <h4 className="font-semibold">Sonstiges</h4>
-                      {navItemsSonstiges.map((navItemSonstiges: INavItem) => (
+                      {navItemsSonstiges.map((navItemSonstiges) => (
                         <MobileLink key={navItemSonstiges.title} href={navItemSonstiges.href} className="ml-2">
                           {navItemSonstiges.title}
                         </MobileLink>
