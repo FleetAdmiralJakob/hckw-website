@@ -4,6 +4,8 @@ import { twMerge } from "tailwind-merge";
 import Navbar from "~/components/ui/navbar";
 import { navItemsMannschaften, navItemsVeranstaltungen } from "./server-config";
 
+export const revalidate = 43200 // Half a day
+
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
@@ -24,12 +26,14 @@ export default async function RootLayout({
     <html lang="en">
       <body
         className={twMerge(
-          "bg-background font-sans text-foreground",
+          "bg-background font-sans text-foreground lg:flex",
           inter.variable,
         )}
       >
-        <Navbar navItemsMannschaften={await navItemsMannschaften()} navItemsVeranstaltungen={await navItemsVeranstaltungen()}/>
-        {children}
+        <Navbar navItemsMannschaften={await navItemsMannschaften()} navItemsVeranstaltungen={await navItemsVeranstaltungen()} />
+        <div className="mt-5 lg:mt-24">
+          {children}
+        </div>
       </body>
     </html>
   );

@@ -95,7 +95,7 @@ const Navbar: React.FC<NavItemsMannschaftenProps> = ({ navItemsMannschaften, nav
           </Sheet>
         </div>
 
-        <NavigationMenu className="p-6 pb-1 hidden lg:flex">
+        <NavigationMenu className="p-6 pb-4 hidden lg:flex w-full z-10 bg-white border-b border-slate-300 shadow-lg">
           <NavigationMenuList>
             <Button
                 variant="ghost"
