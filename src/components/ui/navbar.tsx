@@ -9,6 +9,8 @@ import { useEffect, useState } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "./sheet";
 import { MobileLink } from "./mobile-link";
 import { ScrollArea } from "./scroll-area";
+import { usePathname } from "next/navigation";
+import { cn } from "~/lib/utils";
 
 interface NavItemsMannschaftenProps {
   navItemsMannschaften: INavItem[];
@@ -33,6 +35,13 @@ const Navbar: React.FC<NavItemsMannschaftenProps> = ({ navItemsMannschaften, nav
     };
   }, []);
 
+  const currentPage = (href: string) => {
+    const pathname = usePathname()
+    if (pathname === href) {
+      return "font-bold"
+    }
+    else return ""
+  }
 
     return (
       <>
@@ -67,7 +76,7 @@ const Navbar: React.FC<NavItemsMannschaftenProps> = ({ navItemsMannschaften, nav
                     <div className="flex flex-col space-y-3 pt-3">
                       <h4 className="font-semibold">Mannschaften</h4>
                       {navItemsMannschaften.map((navItemMannschaften) => (
-                        <MobileLink key={navItemMannschaften.title} href={navItemMannschaften.href.toLowerCase()} className="ml-2">
+                        <MobileLink key={navItemMannschaften.title} href={navItemMannschaften.href} className="ml-2">
                           {navItemMannschaften.title}
                         </MobileLink>
                       ))}
@@ -76,7 +85,7 @@ const Navbar: React.FC<NavItemsMannschaftenProps> = ({ navItemsMannschaften, nav
                     <div className="flex flex-col space-y-3 pt-3">
                       <h4 className="font-semibold">Veranstaltungen</h4>
                       {navItemsVeranstaltungen.map((navItemsVeranstaltungen) => (
-                        <MobileLink key={navItemsVeranstaltungen.title} href={navItemsVeranstaltungen.href.toLowerCase()} className="ml-2">
+                        <MobileLink key={navItemsVeranstaltungen.title} href={navItemsVeranstaltungen.href} className="ml-2">
                           {navItemsVeranstaltungen.title}
                         </MobileLink>
                       ))}
@@ -97,27 +106,19 @@ const Navbar: React.FC<NavItemsMannschaftenProps> = ({ navItemsMannschaften, nav
 
         <NavigationMenu className="p-6 pb-4 hidden lg:flex w-full z-10 bg-white border-b border-slate-300 shadow-lg">
           <NavigationMenuList>
-            <Button
-                variant="ghost"
-                className="mr-2 px-0 hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0">
+            <Link href="/" className="mr-2 px-0 hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0">
                     <Image src="/favicon.ico" alt="Logo" width={50} height={60} />
-            </Button>
-            <NavigationMenuItem>
-              <Link href="/" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  Startseite
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
+            </Link>
             <NavigationMenuItem>
               <NavigationMenuTrigger>Verein</NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                   {navItemsVerein.map((navItemVerein) => (
                     <ListItem
                     key={navItemVerein.title}
                     title={navItemVerein.title}
                     href={navItemVerein.href}
+                    classNameTitle={currentPage(navItemVerein.href)}
                   >
                     {navItemVerein.description}
                   </ListItem>
@@ -126,14 +127,15 @@ const Navbar: React.FC<NavItemsMannschaftenProps> = ({ navItemsMannschaften, nav
               </NavigationMenuContent>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <NavigationMenuTrigger><Link href="/mannschaften">Mannschaften</Link></NavigationMenuTrigger>
+              <NavigationMenuTrigger><Link href="/mannschaften" className={currentPage("/mannschaften")}>Mannschaften</Link></NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
                 {navItemsMannschaften.map((navItemMannschaften) => (
                     <ListItem
                     key={navItemMannschaften.title}
                     title={navItemMannschaften.title}
-                    href={navItemMannschaften.href.toLowerCase()}
+                    href={navItemMannschaften.href}
+                    classNameTitle={currentPage(navItemMannschaften.href)}
                   >
                     {navItemMannschaften.description}
                   </ListItem>
@@ -143,20 +145,21 @@ const Navbar: React.FC<NavItemsMannschaftenProps> = ({ navItemsMannschaften, nav
             </NavigationMenuItem>
             <NavigationMenuItem>
               <Link href="/news" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), currentPage("/news"))}>
                   News
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <NavigationMenuTrigger><Link href="/mannschaften">Veranstaltungen</Link></NavigationMenuTrigger>
+              <NavigationMenuTrigger>Veranstaltungen</NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                 {navItemsVeranstaltungen.map((navItemsVeranstaltungen) => (
                     <ListItem
                     key={navItemsVeranstaltungen.title}
                     title={navItemsVeranstaltungen.title}
-                    href={navItemsVeranstaltungen.href.toLowerCase()}
+                    href={navItemsVeranstaltungen.href}
+                    classNameTitle={currentPage(navItemsVeranstaltungen.href)}
                   >
                     {navItemsVeranstaltungen.description}
                   </ListItem>
@@ -172,7 +175,8 @@ const Navbar: React.FC<NavItemsMannschaftenProps> = ({ navItemsMannschaften, nav
                       <ListItem
                       key={navItemsSonstiges.title}
                       title={navItemsSonstiges.title}
-                      href={navItemsSonstiges.href.toLowerCase()}
+                      href={navItemsSonstiges.href}
+                      classNameTitle={currentPage(navItemsSonstiges.href)}
                     >
                       {navItemsSonstiges.description}
                     </ListItem>

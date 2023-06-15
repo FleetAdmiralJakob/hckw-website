@@ -7,7 +7,7 @@ export const navItemsMannschaften = async (): Promise<INavItem[]> => {
     return contentfulMannschaften.items
     .sort((a, b) => ((a.fields.kurzerMannschaftsname ?? '') as string).localeCompare((b.fields.kurzerMannschaftsname ?? '') as string))
     .map((item) => ({
-        href: `/mannschaften/${(item.fields.kurzerMannschaftsname ?? '').toString()}}`,
+        href: `/mannschaften/${(item.fields.kurzerMannschaftsname ?? '').toString().replace(/\s+/g, '-').toLowerCase()}`,
         title: item.fields.kurzerMannschaftsname,
     })) as INavItem[]
 }
@@ -17,7 +17,7 @@ export const navItemsVeranstaltungen = async (): Promise<INavItem[]> => {
     return contentfulVeranstaltungen.items
         .sort((a, b) => ((a.fields.kurzertitel ?? '') as string).localeCompare((b.fields.kurzertitel ?? '') as string))
         .map((item) => ({
-            href: `/veranstaltungen/${(item.fields.kurzertitel ?? '').toString()}`,
+            href: `/veranstaltungen/${(item.fields.kurzertitel ?? '').toString().replace(/\s+/g, '-').toLowerCase()}`,
             title: item.fields.kurzertitel,
         })) as INavItem[]
 }
