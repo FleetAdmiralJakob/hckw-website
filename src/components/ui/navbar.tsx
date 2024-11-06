@@ -35,8 +35,9 @@ const Navbar: React.FC<NavItemsMannschaftenProps> = ({ navItemsMannschaften, nav
     };
   }, []);
 
+  const pathname = usePathname()
+
   const currentPage = (href: string) => {
-    const pathname = usePathname()
     if (pathname === href) {
       return "font-bold"
     }
